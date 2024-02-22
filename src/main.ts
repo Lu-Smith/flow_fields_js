@@ -11,10 +11,6 @@ if (ctx) {
   ctx.strokeStyle = 'white';
   ctx.lineWidth = 10;
   ctx.lineCap = 'round';
-  ctx.beginPath();
-  ctx.moveTo(100,200);
-  ctx.lineTo(400, 500);
-  ctx.stroke();
 }
 
 class Particle {
@@ -31,7 +27,7 @@ class Particle {
   update() {
 
   }
-  draw(context: CanvasRenderingContext2D ) {
+  draw(context: CanvasRenderingContext2D) {
     context.fillRect(this.x, this.y, 10, 10);
   }
 }
@@ -49,8 +45,17 @@ class Effect {
     init() {
       this.particles.push(new Particle(this));
     }
+    render(context: CanvasRenderingContext2D){
+      this.particles.forEach(particle => {
+        particle.draw(context);
+      })
+    }
 }
 
 const effect = new Effect(canvas.width, canvas.height);
 effect.init();
+if (ctx) {
+  effect.render(ctx);
+}
+
 console.log(effect);
