@@ -30,7 +30,7 @@ class Particle {
     this.speedX = Math.random() * 5 - 2.5;
     this.speedY = Math.random() * 5 - 2.5;
     this.history = [{x: this.x, y: this.y}];
-    this.maxLength = Math.floor(Math.random() * 100 + 10);
+    this.maxLength = Math.floor(Math.random() * 200 + 10);
     this.angle = 0;
   }
   update() {
@@ -50,7 +50,6 @@ class Particle {
     };
   }
   draw(context: CanvasRenderingContext2D) {
-    context.fillRect(this.x, this.y, 6, 6);
     context.beginPath();
     context.moveTo(this.history[0].x, this.history[0].y);
     for (let i = 0; i < this.history.length; i++) {
@@ -69,25 +68,30 @@ class Effect {
   rows: number;
   cols: number;
   flowField: number[];
+  curve: number;
+  zoom: number;
 
     constructor(width: number, height: number) {
       this.width = width;
       this.height = height;
       this.particles = [];
-      this.numberOfParticles = 50;
+      this.numberOfParticles = 300;
       this.cellSize = 20;
       this.rows = 0;
       this.cols = 0;
       this.flowField = [];
+      this.curve = 0.5;
+      this.zoom = 0.2;
       this.init();
     }
     init() {
       //create flow field
       this.rows = Math.floor(this.height / this.cellSize);
       this.cols = Math.floor(this.width / this.cellSize);
+      this.flowField = [];
       for (let y = 0; y <this.rows; y++) {
         for ( let x = 0; x < this.cols; x++) {
-          let angle= Math.cos(x) + Math.sin(y);
+          let angle= (Math.cos(x * this.zoom) + Math.sin(y * this.zoom)) * this.curve;
           this.flowField.push(angle);
         }
       }
