@@ -58,15 +58,35 @@ class Effect {
   height: number;
   particles: Particle[];
   numberOfParticles: number; 
+  cellSize: number;
+  rows: number;
+  cols: number;
+  flowField: number[];
 
     constructor(width: number, height: number) {
       this.width = width;
       this.height = height;
       this.particles = [];
       this.numberOfParticles = 50;
+      this.cellSize = 20;
+      this.rows = 0;
+      this.cols = 0;
+      this.flowField = [];
       this.init();
     }
     init() {
+      //create flow field
+      this.rows = Math.floor(this.height / this.cellSize);
+      this.cols = Math.floor(this.width / this.cellSize);
+      for (let y = 0; y <this.rows; y++) {
+        for ( let x = 0; x < this.cols; x++) {
+          let angle= Math.cos(x) + Math.sin(y);
+          this.flowField.push(angle);
+        }
+      }
+      console.log(this.flowField);
+      this.flowField = [];
+      //create particles
       for( let i = 0; i < this.numberOfParticles; i++) {
         this.particles.push(new Particle(this));
       }
@@ -84,7 +104,7 @@ const effect = new Effect(canvas.width, canvas.height);
 const animate = () => {
   if (ctx) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    effect.render(ctx);
+    // effect.render(ctx);
   }
   requestAnimationFrame(animate);
 }
