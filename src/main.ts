@@ -20,8 +20,9 @@ if (ctx) {
 class Particle {
   x: number;
   y: number;
+  effect: Effect;
 
-  constructor(effect) {
+  constructor(effect: Effect) {
     this.effect = effect;
     this.x = Math.floor(Math.random() * this.effect.width);
     this.y = Math.floor(Math.random() * this.effect.height);
@@ -30,23 +31,26 @@ class Particle {
   update() {
 
   }
-  draw() {
-
+  draw(context: CanvasRenderingContext2D ) {
+    context.fillRect(this.x, this.y, 10, 10);
   }
 }
 
 class Effect {
   width: number;
   height: number;
-  particles: [];
+  particles: Particle[];
 
-    constructor(width, height) {
+    constructor(width: number, height: number) {
       this.width = width;
       this.height = height;
       this.particles = []
     }
     init() {
-      this.particles.push(new Particle());
+      this.particles.push(new Particle(this));
     }
 }
 
+const effect = new Effect(canvas.width, canvas.height);
+effect.init();
+console.log(effect);
