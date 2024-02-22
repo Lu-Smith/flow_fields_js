@@ -24,15 +24,15 @@ class Particle {
     this.effect = effect;
     this.x = Math.floor(Math.random() * this.effect.width);
     this.y = Math.floor(Math.random() * this.effect.height);
-    this.speedX = 1;
-    this.speedY = 1;
+    this.speedX = Math.random() * 5 - 2.5;
+    this.speedY = Math.random() * 5 - 2.5;
   }
   update() {
     this.x += this.speedX;
     this.y += this. speedY;
   }
   draw(context: CanvasRenderingContext2D) {
-    context.fillRect(this.x, this.y, 30, 30);
+    context.fillRect(this.x, this.y, 20, 20);
   }
 }
 
@@ -66,6 +66,7 @@ const effect = new Effect(canvas.width, canvas.height);
 
 const animate = () => {
   if (ctx) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     effect.render(ctx);
   }
   requestAnimationFrame(animate);
