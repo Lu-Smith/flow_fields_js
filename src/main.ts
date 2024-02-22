@@ -29,10 +29,10 @@ class Particle {
   }
   update() {
     this.x += this.speedX;
-    this.y = this. speedY;
+    this.y += this. speedY;
   }
   draw(context: CanvasRenderingContext2D) {
-    context.fillRect(this.x, this.y, 50, 50);
+    context.fillRect(this.x, this.y, 30, 30);
   }
 }
 
@@ -63,8 +63,12 @@ class Effect {
 }
 
 const effect = new Effect(canvas.width, canvas.height);
-if (ctx) {
-  effect.render(ctx);
+
+const animate = () => {
+  if (ctx) {
+    effect.render(ctx);
+  }
+  requestAnimationFrame(animate);
 }
 
-console.log(effect);
+animate();
