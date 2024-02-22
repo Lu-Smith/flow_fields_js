@@ -20,6 +20,8 @@ class Particle {
   speedX: number;
   speedY: number;
   history: [{x: number, y: number}];
+  maxLength: number;
+  angle: number;
 
   constructor(effect: Effect) {
     this.effect = effect;
@@ -28,11 +30,17 @@ class Particle {
     this.speedX = Math.random() * 5 - 2.5;
     this.speedY = Math.random() * 5 - 2.5;
     this.history = [{x: this.x, y: this.y}];
+    this.maxLength = Math.floor(Math.random() * 100 + 10);
+    this.angle = 0;
   }
   update() {
-    this.x += this.speedX + Math.random() * 15 - 7.5;
-    this.y += this. speedY + Math.random() * 15 - 7.5;
-    this.history.push({x: this.x, y: this.y})
+    this.angle += 0.5;
+    this.x += this.speedX + Math.sin(this.angle) * 30;
+    this.y += this. speedY + Math.cos(this.angle) * 20;
+    this.history.push({x: this.x, y: this.y});
+    if( this.history.length > this.maxLength) {
+      this.history.shift();
+    }
   }
   draw(context: CanvasRenderingContext2D) {
     context.fillRect(this.x, this.y, 6, 6);
