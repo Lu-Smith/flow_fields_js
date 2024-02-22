@@ -9,7 +9,7 @@ if (ctx) {
   //canvas settings
   ctx.fillStyle = 'white';
   ctx.strokeStyle = 'white';
-  ctx.lineWidth = 10;
+  ctx.lineWidth = 1;
   ctx.lineCap = 'round';
 }
 
@@ -19,6 +19,7 @@ class Particle {
   effect: Effect;
   speedX: number;
   speedY: number;
+  history: [{x: number, y: number}];
 
   constructor(effect: Effect) {
     this.effect = effect;
@@ -26,13 +27,21 @@ class Particle {
     this.y = Math.floor(Math.random() * this.effect.height);
     this.speedX = Math.random() * 5 - 2.5;
     this.speedY = Math.random() * 5 - 2.5;
+    this.history = [{x: this.x, y: this.y}];
   }
   update() {
     this.x += this.speedX;
     this.y += this. speedY;
+    this.history.push({x: this.x, y: this.y})
   }
   draw(context: CanvasRenderingContext2D) {
-    context.fillRect(this.x, this.y, 20, 20);
+    context.fillRect(this.x, this.y, 6, 6);
+    context.beginPath();
+    context.moveTo(this.history[0].x, this.history[0].y);
+    for (let i = 0; i < this.history.length; i++) {
+      context.lineTo(this.history[i].x, this.history[i].y);
+    }
+    context.stroke();
   }
 }
 
