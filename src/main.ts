@@ -54,6 +54,10 @@ class Particle {
       if( this.history.length > this.maxLength) {
         this.history.shift();
       };
+    } else if (this.history.length > 1){
+      this.history.shift();
+    } else {
+      this.reset();
     }
   }
   draw(context: CanvasRenderingContext2D) {
@@ -68,6 +72,7 @@ class Particle {
     this.x = Math.floor(Math.random() * this.effect.width);
     this.y = Math.floor(Math.random() * this.effect.height);
     this.history = [{x: this.x, y: this.y}];
+    this.timer = this.maxLength * 2;
   }
 }
 
