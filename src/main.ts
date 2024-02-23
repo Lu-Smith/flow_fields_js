@@ -115,7 +115,7 @@ class Effect {
       })
 
       window.addEventListener('resize', e => {
-        if (e.target) {
+        if (e.target instanceof Window) {
           this.resize(e.target.innerWidth, e.target.innerHeight);
         }
       })
