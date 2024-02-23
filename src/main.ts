@@ -109,8 +109,13 @@ class Effect {
       this.init();
 
       window.addEventListener('keydown', e => {
-        console.log(e);
         if (e.key === 'd' ) this.debug = !this.debug;
+      })
+
+      window.addEventListener('resize', e => {
+        if (e.target) {
+          console.log(e.target.innerWidth, e.target.innerHeight);
+        }
       })
     }
     init() {
