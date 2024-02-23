@@ -93,12 +93,12 @@ class Effect {
       this.height = height;
       this.particles = [];
       this.numberOfParticles = 2000;
-      this.cellSize = 5;
+      this.cellSize = 25;
       this.rows = 0;
       this.cols = 0;
       this.flowField = [];
       this.curve = 8;
-      this.zoom = 0.05;
+      this.zoom = 0.1;
       this.init();
     }
     init() {
@@ -123,6 +123,12 @@ class Effect {
         context.beginPath();
         context.moveTo(this.cellSize * c, 0);
         context.lineTo(this.cellSize * c, this.height);
+        context.stroke();
+      }
+      for ( let r = 0; r < this.rows; r++) {
+        context.beginPath();
+        context.moveTo(0, this.cellSize * r);
+        context.lineTo(this.width, this.cellSize * r);
         context.stroke();
       }
     }
