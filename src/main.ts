@@ -24,6 +24,8 @@ class Particle {
   angle: number;
   speedModifier: number;
   timer: number;
+  color: string;
+  colors: string[];
 
   constructor(effect: Effect) {
     this.effect = effect;
@@ -36,6 +38,8 @@ class Particle {
     this.maxLength = Math.floor(Math.random() * 200 + 10);
     this.angle = 0;
     this.timer = this.maxLength * 2;
+    this.colors = ['#025919', '#128230', '#42b031', '#6ad15a'];
+    this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
   }
   update() {
     this.timer--;
@@ -66,6 +70,7 @@ class Particle {
     for (let i = 0; i < this.history.length; i++) {
       context.lineTo(this.history[i].x, this.history[i].y);
     };
+    context.strokeStyle = this.color;
     context.stroke();
   }
   reset() {
@@ -94,13 +99,13 @@ class Effect {
       this.height = height;
       this.particles = [];
       this.numberOfParticles = 2000;
-      this.cellSize = 25;
+      this.cellSize = 50;
       this.rows = 0;
       this.cols = 0;
       this.flowField = [];
-      this.curve = 8;
-      this.zoom = 0.1;
-      this.debug = true;
+      this.curve = 5;
+      this.zoom = 0.12;
+      this.debug = false;
       this.init();
 
       window.addEventListener('keydown', e => {
