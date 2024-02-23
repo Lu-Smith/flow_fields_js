@@ -87,6 +87,7 @@ class Effect {
   flowField: number[];
   curve: number;
   zoom: number;
+  debug: boolean;
 
     constructor(width: number, height: number) {
       this.width = width;
@@ -99,7 +100,13 @@ class Effect {
       this.flowField = [];
       this.curve = 8;
       this.zoom = 0.1;
+      this.debug = true;
       this.init();
+
+      window.addEventListener('keydown', e => {
+        console.log(e);
+        if (e.key === 'd' ) this.debug = !this.debug;
+      })
     }
     init() {
       //create flow field
@@ -112,7 +119,6 @@ class Effect {
           this.flowField.push(angle);
         }
       }
-      console.log(this.flowField);
       //create particles
       for( let i = 0; i < this.numberOfParticles; i++) {
         this.particles.push(new Particle(this));
@@ -137,7 +143,7 @@ class Effect {
       context.restore();
     }
     render(context: CanvasRenderingContext2D){
-      this.drawGrid(context);
+      if (this.debug) this.drawGrid(context);
       this.particles.forEach(particle => {
         particle.draw(context);
         particle.update();
