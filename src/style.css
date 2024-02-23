@@ -20,12 +20,11 @@ body {
 
 canvas {
   background: black;
-  flex: 9.4;
 }
 
 footer {
-  flex: 0.6;
-  display: flex;
+  display: fixed;
+  text-align: center;
   align-items: center;
   justify-content: center;
   flex-direction: row;
@@ -33,6 +32,8 @@ footer {
   background-color: #025919;
   width: 100vw;
   padding: 10px;
+  position: fixed;
+  bottom: 10px;
 }
 
 a {
