@@ -119,6 +119,9 @@ class Effect {
       }
     }
     drawGrid(context: CanvasRenderingContext2D) {
+      context.save();
+      context.strokeStyle = 'red';
+      context.lineWidth = 0.4;
       for ( let c = 0; c < this.cols; c++) {
         context.beginPath();
         context.moveTo(this.cellSize * c, 0);
@@ -131,6 +134,7 @@ class Effect {
         context.lineTo(this.width, this.cellSize * r);
         context.stroke();
       }
+      context.restore();
     }
     render(context: CanvasRenderingContext2D){
       this.drawGrid(context);
