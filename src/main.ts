@@ -3,7 +3,7 @@ import './style.css';
 const canvas: HTMLCanvasElement = document.getElementById('canvas1') as HTMLCanvasElement;
 const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d');
 canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.height = window.innerHeight * 0.96;
 
 if (ctx) {
   //canvas settings
