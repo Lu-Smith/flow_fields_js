@@ -118,7 +118,16 @@ class Effect {
         this.particles.push(new Particle(this));
       }
     }
+    drawGrid(context: CanvasRenderingContext2D) {
+      for ( let c = 0; c < this.cols; c++) {
+        context.beginPath();
+        context.moveTo(this.cellSize * c, 0);
+        context.lineTo(this.cellSize * c, this.height);
+        context.stroke();
+      }
+    }
     render(context: CanvasRenderingContext2D){
+      this.drawGrid(context);
       this.particles.forEach(particle => {
         particle.draw(context);
         particle.update();
